@@ -4,7 +4,7 @@ from django.db import models
 
 class Blog(models.Model):
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     description = models.TextField()
 
