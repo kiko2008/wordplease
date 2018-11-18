@@ -39,7 +39,7 @@ class UserSerializer(UserListSerializer):
         return instance
 
     def validate_username(self, value):
-        # for newusers
+        # for new users
         if self.instance is not None and self.instance.username != value and User.objects.filter(username=value).exists():
             raise serializers.ValidationError('Username {0} already exists'.format(value))
 
