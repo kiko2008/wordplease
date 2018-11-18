@@ -1,50 +1,65 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from blogs.models import Blog
+from blogs.serializer import BlogListSerializer
+from posts.models import Category
+from posts.models import Post
 
-class UserListSerializer(serializers.Serializer):
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Category
+        fields = '__all__'
+
+
+class PostListSerializer(serializers.Serializer):
+
+    title = serializers.CharField()
+    introduction = serializers.CharField()
+    url_image = serializers.CharField()
+    pub_date = serializers.CharField()
+
+
+class PostSerializer(PostListSerializer):
 
     id = serializers.ReadOnlyField()
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    username = serializers.CharField()
+    post_body = serializers.CharField()
+    blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
+    category = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Category.objects.all())
+    status = serializers.CharField()
 
+    # para mostrar en el verbo GET los datos de categoria y blog asociado
+    blog = BlogListSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
 
-class UserSerializer(UserListSerializer):
-
-    email = serializers.EmailField()
-    password = serializers.CharField()
 
     def create(self, request_data):
-        user = User()
-        return self.update(user, request_data)
+        post = Post()
+        return self.update(post,request_data)
 
     def update(self, instance, request_data):
-        if request_data.get('first_name') is not None:
-            instance.first_name = request_data.get('first_name')
+        if request_data.get('title') is not None:
+            instance.title = request_data.get('title')
 
-        if request_data.get('last_name') is not None:
-            instance.last_name = request_data.get('last_name')
+        if request_data.get('introduction') is not None:
+            instance.introduction = request_data.get('introduction')
 
-        if request_data.get('username') is not None:
-            instance.username = request_data.get('username')
+        if request_data.get('post_body') is not None:
+            instance.post_body = request_data.get('post_body')
 
-        if request_data.get('email') is not None:
-            instance.email = request_data.get('email')
+        if request_data.get('url_image') is not None:
+            instance.url_image = request_data.get('url_image')
 
-        if request_data.get('password') is not None:
-            instance.set_password(request_data.get('password'))
+        if request_data.get('pub_date') is not None:
+            instance.pub_date = request_data.get('pub_date')
+
+        if request_data.get('blog') is not None:
+            instance.blog = request_data.get('blog')
+
+        if request_data.get('category') is not None:
+            instance.category = request_data.get('category')
 
         instance.save()
         return instance
-
-    def validate_username(self, value):
-        # for new users
-        if self.instance is not None and self.instance.username != value and User.objects.filter(username=value).exists():
-            raise serializers.ValidationError('Username {0} already exists'.format(value))
-
-        # for update existing user
-        if self.instance is None and User.objects.filter(username=value).exists():
-            raise serializers.ValidationError('Username {0} already exists'.format(value))
-
-        return value

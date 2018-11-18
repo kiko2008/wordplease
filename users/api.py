@@ -28,6 +28,9 @@ class UserViewSet(GenericViewSet):
     def update(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         self.check_object_permissions(request, user)
+        # En lugar de implementar el metodo path, permitimos los partial_update en el verbo put.
+        # Decido hacerlo asi porque en las apis rest que e implmentado en otros lenguajes nunca me piden implementar el verbo patch,
+        # en cambio siempre piden que el put permita actualizaciones parciales.
         serializer = UserSerializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()

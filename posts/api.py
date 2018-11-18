@@ -1,40 +1,48 @@
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from users.permissions import UserPermission
-from users.serializer import UserSerializer
+from posts.models import Post
+from posts.serializer import PostSerializer, PostListSerializer
 
 
-class UserViewSet(GenericViewSet):
+class PostViewSet(GenericViewSet):
 
-    permission_classes = [UserPermission]
+    def list(self, request):
+        posts = Post.objects.order_by('-pub_date').all()
+        queryset = self.paginate_queryset(posts)
+        serializer = PostListSerializer(queryset, many=True)
+        return self.get_paginated_response(serializer.data)
 
     def retrieve(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        self.check_object_permissions(request, user)
-        serializer = UserSerializer(user)
+        post = get_object_or_404(Post, pk=pk)
+        self.check_object_permissions(request, post)
+        serializer = PostSerializer(post)
         return Response(serializer.data)
 
     def create(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = PostSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        self.check_object_permissions(request, user)
-        serializer = UserSerializer(user, data=request.data, partial=True)
+        post = get_object_or_404(Post, pk=pk)
+        self.check_object_permissions(request, post)
+        # En lugar de implementar el metodo path, permitimos los partial_update en el verbo put.
+        # Decido hacerlo asi porque en las apis rest que e implmentado en otros lenguajes nunca me piden implementar el verbo patch,
+        # en cambio siempre piden que el put permita actualizaciones parciales.
+        serializer = PostSerializer(post, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
 
     def destroy(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        self.check_object_permissions(request, user)
-        user.delete()
+        post = get_object_or_404(Post, pk=pk)
+        self.check_object_permissions(request, post)
+        post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

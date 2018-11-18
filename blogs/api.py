@@ -12,4 +12,3 @@ class BlogViewSet(ModelViewSet):
     filter_fields = ('user__username',)
     serializer_class = BlogListSerializer
     ordering = ['title']
-
