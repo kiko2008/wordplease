@@ -1,21 +1,16 @@
 from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
-from rest_framework.filters import SearchFilter
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from posts.models import Post
-from posts.serializer import PostSerializer, PostListSerializer
+from posts.permissions import PostPermission
+from posts.serializer import PostSerializer
 
 
 class PostViewSet(GenericViewSet):
-
-    def list(self, request):
-        posts = Post.objects.order_by('-pub_date').all()
-        queryset = self.paginate_queryset(posts)
-        serializer = PostListSerializer(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
+    permission_classes = [IsAuthenticatedOrReadOnly, PostPermission]
 
     def retrieve(self, request, pk):
         post = get_object_or_404(Post, pk=pk)

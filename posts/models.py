@@ -1,5 +1,7 @@
-from blogs.models import Blog
+import django_filters
 from django.db import models
+
+from blogs.models import Blog
 
 
 class Category(models.Model):
@@ -32,3 +34,9 @@ class Post(models.Model):
     def __str__(self):
         return '{0}'.format(self.title)
 
+
+class PostFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Post
+        fields = ['title', 'introduction', ]
