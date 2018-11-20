@@ -23,10 +23,13 @@ class BlogViewSet(ModelViewSet):
     @action(methods=['get'], detail=True, permission_classes=[IsAuthenticatedOrReadOnly], url_path='get-posts',
             url_name='get-posts')
     def get_post(self, request, pk=None):
-    
+
+        # get blog with user data
         blog = get_object_or_404(Blog, pk=pk)
+
         view_private_post = self.request.user.is_authenticated \
             and self.request.user.is_superuser or self.request.user == blog.user
+
         # Filters
         blog_posts = Post.objects.filter(blog_id=pk).all()
         queryset = blog_posts if view_private_post else blog_posts.filter(status=Post.PUBLISHED).all()
@@ -37,10 +40,11 @@ class BlogViewSet(ModelViewSet):
 
         introduction_param = self.request.query_params.get('introduction', None)
         if introduction_param is not None:
-            queryset = queryset.filter(title=introduction_param)
+            queryset = queryset.filter(introduction=introduction_param)
 
-        order_by = request.query_params.get('order_by', None) \
-            if request.query_params.get('order_by', None) is not None else '-pub_date'
+        order_by = request.query_params.get('ordering', None) \
+            if request.query_params.get('ordering', None) is not None else '-pub_date'
+
 
         queryset = self.paginate_queryset(queryset.order_by(order_by))
         serializer = PostListSerializer(queryset, many=True)
