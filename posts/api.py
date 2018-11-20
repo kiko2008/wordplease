@@ -20,6 +20,10 @@ class PostViewSet(GenericViewSet):
 
     def create(self, request):
         serializer = PostSerializer(data=request.data)
+        # post object para pasar al check_object_permission en la creacion
+        post = Post()
+        post.blog_id = request.data.get('blog')
+        self.check_object_permissions(request, post)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
@@ -29,8 +33,9 @@ class PostViewSet(GenericViewSet):
         post = get_object_or_404(Post, pk=pk)
         self.check_object_permissions(request, post)
         # En lugar de implementar el metodo path, permitimos los partial_update en el verbo put.
-        # Decido hacerlo asi porque en las apis rest que e implmentado en otros lenguajes nunca me piden implementar el verbo patch,
-        # en cambio siempre piden que el put permita actualizaciones parciales.
+        # Decido hacerlo asi porque en las apis rest que e implmentado en otros lenguajes
+        # nunca me piden implementar el verbo patch, en cambio siempre piden que el put permita
+        # actualizaciones parciales.
         serializer = PostSerializer(post, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()

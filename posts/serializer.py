@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from blogs.models import Blog
-from blogs.serializer import BlogListSerializer
 from posts.models import Category
 from posts.models import Post
 
@@ -28,12 +27,7 @@ class PostSerializer(PostListSerializer):
     post_body = serializers.CharField()
     blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
     category = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Category.objects.all())
-    status = serializers.CharField()
-
-    # para mostrar en el verbo GET los datos de categoria y blog asociado
-    blog = BlogListSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
-
+    status = serializers.CharField(default=Post.PUBLISHED)
 
     def create(self, request_data):
         post = Post()

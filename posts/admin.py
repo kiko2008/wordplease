@@ -9,4 +9,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'introduction', 'post_body', 'url_image', 'pub_date', 'status']
+    list_display = ['id', 'title', 'introduction', 'post_body', 'url_image', 'pub_date', 'status', 'blog_id']
