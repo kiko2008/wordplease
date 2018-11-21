@@ -1,7 +1,10 @@
 body {
     margin: 0px;
     padding: 0px;
-    background-color: rgba(232,242,242,1)
+    background-color: rgba(240,242,244,1);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -14,17 +17,21 @@ header {
     justify-content: space-between;
 }
 
+main {
+    margin-top: 50px;
+}
+
 .logo {
     font-family: 'La Belle Aurore';
     font-size: 36px;
     font-weight: bolder;
     color: rgba(94,106,107,1);
     margin-left: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 span {
-    color: rgba(19, 252, 174, 0.904);
+    color: rgba(200, 20, 43, 0.904);
 }
 
 nav {
@@ -41,9 +48,11 @@ nav ul li{
 }
 
 .button {
-    box-shadow: inset 0px 0px 1px 1px rgba(19, 252, 174, 0.5);
+    box-shadow: inset 0px 0px 1px 1px rgba(200, 20, 43, 0.904);
     padding: 5px 8px;
     border-radius: 10px;
+    background-color: rgba(200, 20, 43, 0.904);
+    color: rgba(254,254,254,1);
 }
 
 .font-primary {
@@ -78,7 +87,7 @@ nav ul li{
     margin-top: 10px;
     margin-right: 5px;
     margin-left: 5px;
-    box-shadow: 1px 1px rgba(90,90,90,0.5);	;
+    box-shadow: 1px 1px rgba(90,90,90,0.5);
 }
 
 .post-category {
@@ -138,19 +147,69 @@ nav ul li{
     background: linear-gradient(to top, rgba(181,180,180,1) 0%, rgba(245,245,235,1) 50%, rgba(250,243,243,1) 71%, rgba(254,254,254,1) 100%);
 }
 
+
+.blog-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    margin-bottom: 50px;
+}
+
+.blog {
+	background-color: rgba(254,254,254,1);
+	border: 1px solid rgba(94,106,107,0.1);
+	border-radius: 5px;
+	box-shadow: 0.3px 0.3px rgba(94,106,107,1);
+    width: 70%;
+	margin-top: 50px;
+	padding: 10px 10px;
+}
+
+.blog-title {
+	font-size: 24px;
+	font-weight: bolder;
+    font-family: 'open sans';
+	color: rgba(200, 20, 43, 0.904);
+    background-color: rgba(240,242,244,1);
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.blog-description {
+	margin-top: 5px;
+	font-size: 18px;
+	font-family: 'Sans serif';
+	color: rgba(151,160,161,1);
+}
+
+.blog-autor {
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	font-size: 16px;
+	font-weight: bolder;
+	font-family: 'Sans serif';
+	color: rgba(181,180,181,1);
+}
+
+.blog-autor-photo {
+	border-radius: 50px;
+	width: 50px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 footer {
-    position: absolute;
+    margin: auto auto 30px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    width: 100%;
     color: rgba(94,106,107,1);
 }
 
 footer .logo {
-    margin-top: 30px;
+    margin-left: 45px;
     font-size: 18px;
 }
 

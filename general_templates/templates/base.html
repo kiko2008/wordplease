@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<title>Wordplease</title>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=La+Belle+Aurore"/>
+	<link href="http://fonts.googleapis.com/css?family=Work+Sans:700" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+		<h1 class="logo"><span>W</span>ordplease</h1>
+		<nav>
+			<ul>
+				<li><a href="{% url 'home' %}"><span>I</span>NICIO</a></li>
+				<li><a href="{% url 'blogs' %}"><span>B</span>LOGS</a></li>
+				<li><a href="#" class="button">ENTRAR</a></li>
+				<li><a href="#" class="button">SALIR</a></li>
+				<li><a href="#" class="button">REGISTRARSE</a></li>
+			</ul>
+		</nav>
+	</header>
+
+    <main>
+        {% block main_body %} {% endblock %}
+    </main>
+
+  	<footer>
+		<h2 class="logo"><span>W</span>ordplease</h2>
+		<nav>
+            <ul>
+                <li>
+                    <a href="#" title="Linkedin">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="Github">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="Facebook">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="Twitter">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="Twitter">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="Twitter">
+                        <span class="fa-stack fa">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fab fa-pinterest-p fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+	</footer>
+
+</body>
+</html>
