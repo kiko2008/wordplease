@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main_body %}
+<sextion>
+    <article class="login-wrapper">
+        <form method="post">
+            {% csrf_token %}
+            <label htmlFor="username">Usuario</label>
+            <input type="text" name="username" value="" onChange="" placeholder="Usuario"/>
+            <label htmlFor="password">Contraseña</label>
+            <input type="password" name="password" value="" onChange="" placeholder="Contraseña"/>
+
+            <button type="submit">Enviar</button>
+            <p className="error"> {{ message }} </p>
+        </form>
+    </article>
+</sextion>
+{% endblock %}
