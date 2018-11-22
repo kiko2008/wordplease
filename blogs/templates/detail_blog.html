@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block main_body %}
+<section class="blog-detail">
+	<article class="blog">
+
+		<div class="blog-title">
+			 {{ blog.title }}
+		</div>
+		<div class="blog-description">
+			 {{ blog.description }}
+		</div>
+		<div class="blog-autor">
+			<img src="https://picsum.photos/200/300" class="blog-autor-photo">
+			<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.first_name }}</label>
+		</div>
+	</article>
+	{% include "list_posts.html" %}
+	<a href="/new-post/">Crear nuevo post</a>
+</section>
+{% endblock %}

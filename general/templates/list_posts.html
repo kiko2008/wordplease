@@ -1,0 +1,15 @@
+<section class="posts-list font-primary">
+    {% for post in list_posts %}
+    <article class="post gradient-pink">
+        	<div class="post-category">
+                {{ post.category }}
+			</div>
+			<div class="post-description">
+				<img src="{{ post.url_image }}" class="post-photo">
+				<label class="font-size-small">Nombre apellido1 Apellido2 Apellido3</label>
+				<h2 class="font-size-large">{{ post.introduction }}</h2>
+				<label class="post-label-resume font-size-medium">{{ post.introduction }}</label>
+			</div>
+    </article>
+    {% endfor %}
+</section>

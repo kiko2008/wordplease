@@ -3,7 +3,8 @@
 {% block main_body %}
 <section class="blog-list">
     {% for blog in list_all_blogs %}
-        <article class="blog">
+	<article class="blog">
+			<a href="/blogs/{{ blog.id }}/">
 			<div class="blog-title">
 				 {{ blog.title }}
 			</div>
@@ -14,7 +15,8 @@
                 <img src="https://picsum.photos/200/300" class="blog-autor-photo">
 				<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.first_name }}</label>
 			</div>
-		</article>
+		</a>
+	</article>
     {% endfor %}
 </section>
 {% endblock %}
