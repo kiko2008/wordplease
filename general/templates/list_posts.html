@@ -1,6 +1,7 @@
 <section class="posts-list font-primary">
     {% for post in list_posts %}
     <article class="post gradient-pink">
+		<a href="/blogs/{{ post.blog.id }}/{{ post.id }}/">
         	<div class="post-category">
                 {{ post.category }}
 			</div>
@@ -10,6 +11,7 @@
 				<h2 class="font-size-large">{{ post.introduction }}</h2>
 				<label class="post-label-resume font-size-medium">{{ post.introduction }}</label>
 			</div>
+		</a>
     </article>
     {% endfor %}
 </section>

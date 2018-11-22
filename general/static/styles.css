@@ -199,6 +199,69 @@ nav ul li{
 	margin-right: 10px;
 }
 
+label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    color: rgba(94,106,107,1);
+}
+
+input {
+    margin: 5px 5px 15px 5px;
+    display: block;
+    border: 0.1px solid rgba(94,106,107,0.3);
+    background-color: rgba(254,254,254,1);
+    color: rgba(94,106,107,1);
+    padding: 5px;
+}
+
+textarea {
+    margin: 5px 5px 15px 5px;
+    display: block;
+    border: 0.1px solid rgba(94,106,107,0.3);
+    background-color: rgba(254,254,254,1);
+    color: rgba(94,106,107,1);
+    padding: 5px;
+}
+
+input[type="button"]  {
+    cursor: pointer;
+    color:  rgba(200, 20, 43, 0.904);
+    border: 1px solid rgba(254,254,254,0.2);
+    border-radius: 10px;
+    padding: 4px 4px;
+    background-color: rgba(254,254,254,1);
+}
+
+.login-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px 30px 30px;
+    border-radius: 5px;
+    box-shadow:0 1px 4px rgba(94,106,107,1);
+    background-color: rgba(182, 19, 40, 1);
+}
+
+.login-wrapper label {
+    color: rgba(254,254,254,1);
+}
+
+.login-wrapper input {
+    border: 0.1px solid rgba(254,254,254,0.2);
+    background-color: rgba(200, 20, 43, 0.904);
+    color: rgba(254,254,254,1);
+}
+
+.login-wrapper input[type="button"] {
+    color:  rgba(200, 20, 43, 0.904);
+    border: 1px solid rgba(254,254,254,0.2);
+    background-color: rgba(254,254,254,1);
+}
+
 footer {
     margin: auto auto 30px auto;
     display: flex;
