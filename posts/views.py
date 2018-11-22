@@ -1,11 +1,38 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView, DetailView
 
+from posts.forms import PostForm
 from posts.models import Post
 
 
-class HomeView(View):
+class HomeView(ListView):
 
+    template_name = 'home.html'
+    queryset = Post.objects.filter(status=Post.PUBLISHED).order_by('-pub_date')[:10]
+    context_object_name = 'list_posts'
+
+
+class PostDetailView(DetailView):
+
+    model = Post
+    template_name = 'detail_post.html'
+
+
+class NewPostView(View):
+
+    #@method_decorator(login_required)
     def get(self, request):
-        last_posts_published = Post.objects.filter(status=Post.PUBLISHED).order_by('-pub_date')
-        return render(request, 'home.html', {'list_last_published_posts': last_posts_published[:10]})
+        post_form = PostForm()
+        return render(request, 'new_post.html', {'form': post_form})
+
+    #@method_decorator(login_required)
+    def post(self, request):
+        new_post = Post()
+        post_form = PostForm(request.POST, request.FILES, instance=new_post)
+        if  post_form.is_valid():
+            new_post =  post_form.save()
+            messages.success(request, 'El post {0} se ha creado corretamente!'.format(new_post.title))
+            post_form = PostForm()
+        return render(request, 'new_post.html', {'form':  post_form})

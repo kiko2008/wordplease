@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 
 {% block main_body %}
+<section class="blog-detail">
+	<article class="blog">
 
-<section class="posts-list font-primary">
-  	{% include "list_posts.html" %}
+		<div class="blog-title">
+			 {{ post.title }}
+		</div>
+		<div class="blog-description">
+			 {{ post.introduction }}
+		</div>
+		<div>
+			{{ post.body }}
+		</div>
+		<div>
+			{{ post.category }}
+		</div>
+	</article>
 </section>
 {% endblock %}
