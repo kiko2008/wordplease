@@ -2,8 +2,9 @@
 
 {% block main_body %}
 <section class="blog-list">
-    {% for blog in list_all_blogs %}
-	<article class="blog">
+	{% if list_all_blogs  %}
+		{% for blog in list_all_blogs %}
+		<article class="blog">
 			<a href="/blogs/{{ blog.id }}/">
 			<div class="blog-title">
 				 {{ blog.title }}
@@ -12,11 +13,13 @@
 				 {{ blog.description }}
 			</div>
 			<div class="blog-autor">
-                <img src="https://picsum.photos/200/300" class="blog-autor-photo">
-				<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.first_name }}</label>
+				<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.last_name }}</label>
 			</div>
-		</a>
-	</article>
-    {% endfor %}
+			</a>
+		</article>
+		{% endfor %}
+	{% else %}
+      <span class="no-items-found">No hay ningun blog publicado!!</span>
+    {% endif %}
 </section>
 {% endblock %}

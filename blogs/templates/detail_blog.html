@@ -2,8 +2,19 @@
 
 {% block main_body %}
 <section class="blog-detail">
+    <div class="wrapper-filter-category">
+        <form method="GET">
+           <label>filtrar por categorias</label>
+           <select name="filter_category">
+               <option selected>Elige una opcion...</option>
+               {% for category in categorys %}
+                   <option value="{{ category.id }}">{{ category.name }}</option>
+               {% endfor %}
+           </select>
+           <button type="submit">Filtrar</button>
+        </form>
+    </div>
 	<article class="blog">
-
 		<div class="blog-title">
 			 {{ blog.title }}
 		</div>
@@ -11,11 +22,26 @@
 			 {{ blog.description }}
 		</div>
 		<div class="blog-autor">
-			<img src="https://picsum.photos/200/300" class="blog-autor-photo">
-			<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.first_name }}</label>
+			<label class="font-size-small">{{ blog.user.first_name }} {{ blog.user.last_name }}</label>
 		</div>
 	</article>
-	{% include "list_posts.html" %}
-	<a href="/new-post/">Crear nuevo post</a>
+	<div class="posts-list font-primary">
+		{% include "list_posts.html" %}
+	</div>
+	{% include "paginator.html" %}
+
 </section>
 {% endblock %}
+
+
+
+<form method="GET" action="{% url 'list_posts' username blog_id %}">
+   <label>Categories</label>
+   <select name="category">
+       <option selected>Elige una opcion...</option>
+       {% for category in categorys %}
+           <option value="{{ category.id }}">{{ category.name }}</option>
+       {% endfor %}
+   </select>
+   <button type="submit">Filtrar</button>
+</form>

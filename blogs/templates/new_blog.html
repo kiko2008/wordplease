@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main_body %}
+<section class="blog-new">
+	<h2 class="font-primary"><span>C</span>REAR NUEVO BLOG</h2>
+	<article>
+		<div class="wrapper-blog-new-form">
+			<form method="post" novalidate>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">GUARDAR</button>
+			</form>
+		</div>
+	</article>
+	{% include "messages.html" %}
+</section>
+{% endblock %}

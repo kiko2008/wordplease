@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
-from rest_framework.filters import SearchFilter,  OrderingFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ModelViewSet
 
@@ -32,7 +34,7 @@ class BlogViewSet(ModelViewSet):
 
         # Filters
         blog_posts = Post.objects.filter(blog_id=pk).all()
-        queryset = blog_posts if view_private_post else blog_posts.filter(status=Post.PUBLISHED).all()
+        queryset = blog_posts if view_private_post else blog_posts.filter(pub_date__lte=datetime.now()).all()
 
         title_param = self.request.query_params.get('title', None)
         if title_param is not None:
