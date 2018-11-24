@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block main_body %}
+<section class="user-new">
+	<h2 class="font-primary"><span>C</span>REAR NUEVO USUARIO</h2>
+	<article>
+		<div class="wrapper-user-new-form">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">GUARDAR</button>
+            </form>
+		</div>
+	</article>
+   	{% include "messages.html" %}
+</section>
+{% endblock %}
