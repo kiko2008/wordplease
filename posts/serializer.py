@@ -27,7 +27,6 @@ class PostSerializer(PostListSerializer):
     post_body = serializers.CharField()
     blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
     category = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Category.objects.all())
-    status = serializers.CharField(default=Post.PUBLISHED)
 
     def create(self, request_data):
         post = Post()

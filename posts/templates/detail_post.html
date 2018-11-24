@@ -1,20 +1,33 @@
 {% extends "base.html" %}
 
 {% block main_body %}
-<section class="blog-detail">
-	<article class="blog">
-
-		<div class="blog-title">
-			 {{ post.title }}
+<section class="post-detail">
+	<article>
+		{% if post.url_video %}
+			<div class="video-container">
+				<iframe class="video" width="560" height="315" src="{{ post.url_video }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			</div>
+  		{% else %}
+    		<img src="{{ post.url_image }}"
+				 	srcset="{{ post.url_image }} 320w,
+            		      	{{ post.url_image }} 480w,
+            				{{ post.url_image }} 800w,
+            				{{ post.url_image }} 1200w,
+            				{{ post.url_image }} 1800w"
+				 class="post-detail-photo" alt="${post.title}"></img>
+  		{% endif %}
+		<div class="post-category">
+			{% for category in post.categorys.all %}
+				<li class="post-list-categorys">{{ category.name }}</li>
+			{% endfor %}
 		</div>
-		<div class="blog-description">
-			 {{ post.introduction }}
-		</div>
-		<div>
-			{{ post.body }}
-		</div>
-		<div>
-			{{ post.category }}
+		<div class="wrapper-post-detail">
+			<h2 class="post-title">
+				{{ post.title }}
+			</h2>
+			<div>
+				{{ post.post_body|safe }}
+			</div>
 		</div>
 	</article>
 </section>
