@@ -1,17 +1,34 @@
-<section class="posts-list font-primary">
-    {% for post in list_posts %}
-    <article class="post gradient-pink">
-		<a href="/blogs/{{ post.blog.id }}/{{ post.id }}/">
-        	<div class="post-category">
-                {{ post.category }}
-			</div>
-			<div class="post-description">
-				<img src="{{ post.url_image }}" class="post-photo">
-				<label class="font-size-small">Nombre apellido1 Apellido2 Apellido3</label>
-				<h2 class="font-size-large">{{ post.introduction }}</h2>
-				<label class="post-label-resume font-size-medium">{{ post.introduction }}</label>
-			</div>
-		</a>
-    </article>
-    {% endfor %}
-</section>
+{% if list %}
+	{% for post in list %}
+		<article class="post">
+			<a href="/blogs/{{ post.blog.id }}/{{ post.id }}/">
+
+				<div class="post-description">
+					{% if post.url_video %}
+						<div class="video-container-list">
+							<iframe class="video" width="560" height="315" src="{{ post.url_video }}" frameborder="0" allow="autoplay=1; encrypted-media" allowfullscreen></iframe>
+						</div>
+					{% else %}
+						<img src="{{ post.url_image }}"
+								srcset="{{ post.url_image }} 320w,
+										{{ post.url_image }} 480w,
+										{{ post.url_image }} 800w,
+										{{ post.url_image }} 1200w,
+										{{ post.url_image }} 1800w"
+							 class="post-photo" alt="${post.url_image}"></img>
+					{% endif %}
+					<label class="font-size-small">{{ post.blog.user.first_name }} {{ post.blog.user.last_name }}</label>
+					<h2 class="post-title font-size-large">{{ post.title }}</h2>
+					<label class="post-label-resume font-size-medium">{{ post.introduction }}</label>
+				</div>
+				<div class="post-category">
+					{% for category in post.categorys.all %}
+						<li class="post-list-categorys">{{ category.name }}</li>
+					{% endfor %}
+				</div>
+			</a>
+		</article>
+	{% endfor %}
+{% else %}
+  <span class="no-items-found">No hay ningun post publicado!!</span>
+{% endif %}

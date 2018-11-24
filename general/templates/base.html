@@ -16,12 +16,14 @@
 		<h1 class="logo"><span>W</span>ordplease</h1>
 		<nav>
 			<ul>
-                <li><a href="{% url 'blogs' %}"><span>B</span>LOGS</a></li>
+
                 <li><a href="{% url 'home' %}"><span>I</span>NICIO</a></li>
+                <li><a href="{% url 'blogs' %}"><span>B</span>LOGS</a></li>
                 {% if not user.is_authenticated %}
                     <li><a href="{% url 'login' %}" class="button">ENTRAR</a></li>
-                    <li><a href="#" class="button">REGISTRARSE</a></li>
+                    <li><a href="{% url 'logup' %}" class="button">REGISTRARSE</a></li>
                 {% else %}
+                    <li><a href="{% url 'new-blog' %}"><span>N</span>UEVO BLOG</a></li>
                     <li><a href="{% url 'new-post' %}"><span>N</span>UEVO POST</a></li>
 					<li><a href="{% url 'logout' %}" class="button">SALIR</a></li>
                 {% endif %}

@@ -1,0 +1,21 @@
+{% if list.has_other_pages %}
+    <div class="wrapper_paginator">
+    {% if list.has_previous %}
+        <li><a href="?page={{ list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+        <li class="disabled">&laquo;</li>
+    {% endif %}
+    {% for i in list.paginator.page_range %}
+        {% if list.number == i %}
+            <li class="disabled">{{ i }} </li>
+        {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if list.has_next %}
+        <li><a href="?page={{ list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+        <li class="disabled">&raquo;</li>
+    {% endif %}
+    </div>
+{% endif %}
