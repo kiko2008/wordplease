@@ -15,7 +15,6 @@ class PostAdmin(admin.ModelAdmin):
     def formatted_pub_date(self, obj):
         return obj.pub_date.strftime('%d/%m/%Y %H:%M')
 
-
     fieldsets = [
         [None, {
             'fields': ['title']
