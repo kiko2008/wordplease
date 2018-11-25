@@ -27,7 +27,7 @@ class PostSerializer(PostListSerializer):
     post_body = serializers.CharField()
     url_video = serializers.CharField(required=False, allow_null=True)
     blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
-    category = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Category.objects.all())
+    categorys = CategorySerializer(many=True)
 
     def create(self, request_data):
         post = Post()
@@ -55,8 +55,11 @@ class PostSerializer(PostListSerializer):
         if request_data.get('blog') is not None:
             instance.blog = request_data.get('blog')
 
-        if request_data.get('category') is not None:
-            instance.category = request_data.get('category')
-
         instance.save()
+
+        if request_data.get('categorys') is not None:
+            for category in self.initial_data.get('categorys'):
+                category = Category.objects.get(id=category.get('id'))
+                instance.categorys.add(category)
+
         return instance
