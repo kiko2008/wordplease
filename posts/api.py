@@ -23,6 +23,7 @@ class PostViewSet(GenericViewSet):
         # post object para pasar al check_object_permission en la creacion
         post = Post()
         post.blog_id = request.data.get('blog')
+        post.pub_date = request.data.get('pub_date')
         self.check_object_permissions(request, post)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

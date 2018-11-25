@@ -20,7 +20,7 @@ class Post(Model):
     introduction = models.CharField(max_length=200)
     post_body = models.TextField()
     url_image = models.CharField(max_length=100)
-    url_video = models.CharField(default=None, blank=True, max_length=100)
+    url_video = models.CharField(default=None, blank=True, null=True, max_length=100)
     pub_date = models.DateTimeField('%d/%m/%Y %H:%M:%S')
     categorys = models.ManyToManyField(Category)
 

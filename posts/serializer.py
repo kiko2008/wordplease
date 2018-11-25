@@ -25,6 +25,7 @@ class PostSerializer(PostListSerializer):
 
     id = serializers.ReadOnlyField()
     post_body = serializers.CharField()
+    url_video = serializers.CharField(required=False, allow_null=True)
     blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
     category = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Category.objects.all())
 
@@ -44,6 +45,9 @@ class PostSerializer(PostListSerializer):
 
         if request_data.get('url_image') is not None:
             instance.url_image = request_data.get('url_image')
+
+        if request_data.get('url_video') is not None:
+            instance.url_video = request_data.get('url_video')
 
         if request_data.get('pub_date') is not None:
             instance.pub_date = request_data.get('pub_date')
