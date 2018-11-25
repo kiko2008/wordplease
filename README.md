@@ -141,6 +141,7 @@ Al pulsar el boton de login podremos ver la pantalla de login donde podremos aut
   * Crear un nuevo post asociado a unos de los blogs asociados al usuario logado en la application.
   * Salir de la aplicación, mediante el boton SALIR.
 
+Creo que estan todos los requerimientos del enunciado reflejados en el desarrollo, he intentado aplicar y probar todos los conceptos aprendidos durante el modulo y otras cosas que he ido investigando por mi cuenta.
 
 ## Version
 
