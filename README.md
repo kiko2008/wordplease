@@ -1,6 +1,4 @@
-# wordplease
-
-<img src="https://raw.githubusercontent.com/kiko2008/wordplease/master/general/static/logoWP.png" height="180" alt="Wordplease" />
+<img src="https://github.com/kiko2008/wordplease/blob/master/general/static/wordplease.png" height="180" alt="Wordplease" />
 
 
 El desarrollo es un API y una pagina web para mostrar el funcionamiento de una tweb de publicacion de blogs y sus posts 
