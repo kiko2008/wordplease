@@ -1,12 +1,13 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from posts.models import Post, Category
 from posts.permissions import PostPermission
-from posts.serializer import PostSerializer
+from posts.serializer import PostSerializer, PostImageFeaturedSerializer
 
 
 class PostViewSet(GenericViewSet):
@@ -46,3 +47,17 @@ class PostViewSet(GenericViewSet):
         self.check_object_permissions(request, post)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PostImageFeaturedViewSet(GenericViewSet):
+
+    parser_classes = (MultiPartParser, FormParser)
+
+    def create(self, request):
+        serializer = PostImageFeaturedSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+

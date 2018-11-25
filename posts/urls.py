@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from posts.api import PostViewSet
+from posts.api import PostViewSet, PostImageFeaturedViewSet
 from posts.views import HomeView, PostDetailView, NewPostView
 
 router = DefaultRouter()
 router.register('posts', PostViewSet, base_name='posts')
+router.register('image-featured', PostImageFeaturedViewSet, base_name='image-featured')
 
 urlpatterns = [
     path('home', HomeView.as_view(), name='home'),

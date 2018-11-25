@@ -30,7 +30,7 @@ class BlogViewSet(ModelViewSet):
         blog = get_object_or_404(Blog, pk=pk)
 
         view_private_post = self.request.user.is_authenticated \
-            and self.request.user.is_superuser or self.request.user == blog.user
+                            and self.request.user.is_superuser or self.request.user == blog.user
 
         # Filters
         blog_posts = Post.objects.filter(blog_id=pk).all()
@@ -43,6 +43,10 @@ class BlogViewSet(ModelViewSet):
         introduction_param = self.request.query_params.get('introduction', None)
         if introduction_param is not None:
             queryset = queryset.filter(introduction=introduction_param)
+
+        category_param = self.request.query_params.get('category', None)
+        if category_param is not None:
+            queryset = queryset.filter(categorys=category_param)
 
         order_by = request.query_params.get('ordering', None) \
             if request.query_params.get('ordering', None) is not None else '-pub_date'

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from blogs.models import Blog
-from posts.models import Category
+from posts.models import Category, PostImageFeatured
 from posts.models import Post
 
 
@@ -28,6 +28,7 @@ class PostSerializer(PostListSerializer):
     url_video = serializers.CharField(required=False, allow_null=True)
     blog = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Blog.objects.all())
     categorys = CategorySerializer(many=True)
+    author = serializers.SerializerMethodField()
 
     def create(self, request_data):
         post = Post()
@@ -63,3 +64,17 @@ class PostSerializer(PostListSerializer):
                 instance.categorys.add(category)
 
         return instance
+
+    def get_author(self, obj):
+
+        return Blog.objects.filter(pk=obj.blog_id).select_related('user').values_list('user__first_name', 'user__last_name').all()
+
+
+class PostImageFeaturedSerializer(serializers.Serializer):
+
+    def create(self, request_data):
+
+        image_featured = PostImageFeatured()
+        image_featured.image_featured = request_data.get('image_featured')
+        image_featured.save()
+        return image_featured
