@@ -3,6 +3,6 @@ Django==2.1.7
 django-filter==2.0.0
 djangorestframework==3.9.1
 pytz==2018.7
-PyYAML==4.2b1
+PyYAML==5.4
 six==1.11.0
 unicodecsv==0.14.1
